@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const CreditCardSchema = new mongoose.Schema({
   card_number: Number,
@@ -36,4 +36,4 @@ const CustomerSchema = new mongoose.Schema({
   preferences: PreferencesSchema
 });
 
-module.exports = mongoose.model('Customer', CustomerSchema);
+export default mongoose.model('Customer', CustomerSchema);
