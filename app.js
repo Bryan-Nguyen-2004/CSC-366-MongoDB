@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Customer from './models/Customer.js';
 import Manager from './models/Manager.js';
 import Employee from './models/Employee.js';
+import Supplier from './models/Supplier.js';
 import dotenv from 'dotenv';
 
 const app = express();
@@ -521,6 +522,227 @@ app.post('/populateEmployee', async (req, res) => {
   try {
     await Employee.insertMany(employees);
     res.json('Employees added!');
+  } catch (err) {
+    res.status(400).json('Error: ' + err);
+  }
+});
+
+app.post('/populateSupplier', async (req, res) => {
+  const shipments = [
+    {
+      "order_number": "ORD987654",
+      "shipment_date": "2024-03-12T00:00:00.000Z",
+      "expected_delivery_date": "2024-03-17T00:00:00.000Z",
+      "actual_delivery_date": "2024-03-18T00:00:00.000Z",
+      "delivery_company": "FastShip Couriers",
+      "tracking_number": "FS987654321",
+      "order_cost": 299.5,
+      "shipment_cost": 30.0,
+      "weight": 22.0,
+      "supplier": {
+        "id": "TEAHOUSE789",
+        "name": "The Tea House",
+        "address": "789 Tea Lane, Tea City",
+        "email": "info@teahouse.com",
+        "phone_number": "555-TEA-HOUSE"
+      },
+      "store_destination_id": "STARBUCKS002",
+      "ordered_product": [
+        {
+          "product": {
+            "id": "TEA002",
+            "name": "English Breakfast Tea",
+            "description": "A classic blend of black teas, robust and full-bodied."
+          },
+          "quantity": 80,
+          "cost_per": 4.49
+        },
+        {
+          "product": {
+            "id": "TEA003",
+            "name": "Chamomile Herbal Tea",
+            "description": "Soothing and calming, perfect for relaxation."
+          },
+          "quantity": 40,
+          "cost_per": 3.99
+        }
+      ]
+    },
+    {
+      "order_number": "ORD246810",
+      "shipment_date": "2024-03-15T00:00:00.000Z",
+      "expected_delivery_date": "2024-03-20T00:00:00.000Z",
+      "actual_delivery_date": null,
+      "delivery_company": "Quick Logistics",
+      "tracking_number": "QL246810975",
+      "order_cost": 120.0,
+      "shipment_cost": 15.0,
+      "weight": 10.0,
+      "supplier": {
+        "id": "BEVERAGECOMPANY456",
+        "name": "Beverage Company",
+        "address": "456 Drink Street, Beverage City",
+        "email": "orders@beverages.com",
+        "phone_number": "888-DRINKS"
+      },
+      "store_destination_id": "STARBUCKS003",
+      "ordered_product": [
+        {
+          "product": {
+            "id": "COFFEEBEANS001",
+            "name": "Premium Coffee Beans",
+            "description": "Roasted Arabica coffee beans for rich espresso."
+          },
+          "quantity": 5,
+          "cost_per": 10.0
+        },
+        {
+          "product": {
+            "id": "MILK002",
+            "name": "Organic Milk",
+            "description": "Fresh and creamy organic milk."
+          },
+          "quantity": 10,
+          "cost_per": 3.5
+        },
+        {
+          "product": {
+            "id": "SYRUP003",
+            "name": "Vanilla Syrup",
+            "description": "Sweet vanilla syrup for flavored lattes."
+          },
+          "quantity": 3,
+          "cost_per": 7.99
+        },
+        {
+          "product": {
+            "id": "TEABAGS004",
+            "name": "Green Tea Bags",
+            "description": "High-quality green tea bags."
+          },
+          "quantity": 20,
+          "cost_per": 2.0
+        }
+      ]
+    },
+    {
+      "order_number": "ORD369121",
+      "shipment_date": "2024-03-18T00:00:00.000Z",
+      "expected_delivery_date": "2024-03-23T00:00:00.000Z",
+      "actual_delivery_date": "2024-03-25T00:00:00.000Z",
+      "delivery_company": "Speedy Shipments",
+      "tracking_number": "SS369121888",
+      "order_cost": 180.0,
+      "shipment_cost": 25.0,
+      "weight": 12.0,
+      "supplier": {
+        "id": "BEVERAGESUPPLY789",
+        "name": "Beverage Supply Co.",
+        "address": "789 Drink Avenue, Beverage Town",
+        "email": "info@beveragesupply.com",
+        "phone_number": "555-123-4567"
+      },
+      "store_destination_id": "STARBUCKS004",
+      "ordered_product": [
+        {
+          "product": {
+            "id": "CHOCOLATE002",
+            "name": "Dark Chocolate Sauce",
+            "description": "Rich dark chocolate sauce for mochas."
+          },
+          "quantity": 4,
+          "cost_per": 12.0
+        },
+        {
+          "product": {
+            "id": "ESPRESSO003",
+            "name": "Espresso Pods",
+            "description": "Single-serve espresso pods for convenience."
+          },
+          "quantity": 50,
+          "cost_per": 1.5
+        },
+        {
+          "product": {
+            "id": "MINTSYRUP005",
+            "name": "Mint Syrup",
+            "description": "Refreshing mint syrup for specialty drinks."
+          },
+          "quantity": 2,
+          "cost_per": 9.99
+        },
+        {
+          "product": {
+            "id": "WHIPPEDCREAM006",
+            "name": "Whipped Cream",
+            "description": "Creamy whipped topping for indulgent beverages."
+          },
+          "quantity": 8,
+          "cost_per": 5.0
+        }
+      ]
+    },
+    {
+      "order_number": "ORD753159",
+      "shipment_date": "2024-03-19T09:00:00.000Z",
+      "expected_delivery_date": "2024-03-19T17:00:00.000Z",
+      "actual_delivery_date": "2024-03-19T15:30:00.000Z",
+      "delivery_company": "Swift Deliveries",
+      "tracking_number": "SWIFT753159111",
+      "order_cost": 250.0,
+      "shipment_cost": 15.0,
+      "weight": 30.0,
+      "supplier": {
+        "id": "COFFEEWARE567",
+        "name": "Coffee Ware Co.",
+        "address": "567 Mug Street, Cup City",
+        "email": "orders@coffeeware.com",
+        "phone_number": "999-CUPS-4U"
+      },
+      "store_destination_id": "STARBUCKS005",
+      "ordered_product": [
+        {
+          "product": {
+            "id": "COFFEECUP001",
+            "name": "16 oz Paper Cups",
+            "description": "Disposable paper cups for hot beverages."
+          },
+          "quantity": 500,
+          "cost_per": 0.5
+        },
+        {
+          "product": {
+            "id": "LIDS002",
+            "name": "Lids for 16 oz Cups",
+            "description": "Fits 16 oz paper cups for on-the-go drinks."
+          },
+          "quantity": 500,
+          "cost_per": 0.3
+        },
+        {
+          "product": {
+            "id": "STIRRERS003",
+            "name": "Wooden Stirrers",
+            "description": "Eco-friendly wooden stirrers for mixing."
+          },
+          "quantity": 1000,
+          "cost_per": 0.1
+        },
+        {
+          "product": {
+            "id": "NAPKINS004",
+            "name": "Beverage Napkins",
+            "description": "Absorbent napkins for spills and messes."
+          },
+          "quantity": 1000,
+          "cost_per": 0.2
+        }
+      ]
+    }    
+  ]
+  try {
+    await Supplier.insertMany(shipments);
+    res.json('Shipments added!');
   } catch (err) {
     res.status(400).json('Error: ' + err);
   }
