@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import SuppliedProduct from './Supplier.js';
 
 const CreditCardSchema = new mongoose.Schema({
   card_number: Number,
@@ -31,6 +32,8 @@ const CustomerSchema = new mongoose.Schema({
   address: String,
   phone_number: String,
   star_balance: Number,
+  order_history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SuppliedProduct' }],
+  favorite_products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SuppliedProduct' }],
   credit_cards: [CreditCardSchema],
   messages: [MessageSchema],
   preferences: PreferencesSchema
