@@ -9,15 +9,22 @@ router.get('/customerOrders/:customerId', async (req, res) => {
   const { name, description } = req.query;
 
   try {
+    const match = {};
+    if (name) {
+      console.log(name);
+      match.name = { $regex: name, $options: 'i' };
+    }
+    if (description) {
+      console.log(description);
+      match.description = { $regex: description, $options: 'i' };
+    }
+
     const customer = await Customer.findById(customerId).populate({
       path: 'order_history',
-      match: {
-        $or: [
-          { name: { $regex: name, $options: 'i' } },
-          { description: { $regex: description, $options: 'i' } }
-        ]
-      }
+      match: Object.keys(match).length ? { $or: [match] } : {}
     });
+
+    console.log(customer.order_history);
 
     // Filter out null values (orders that didn't match the filter)
     const orders = customer.order_history.filter(order => order !== null);
@@ -43,6 +50,8 @@ router.get('/getPreferences/:customerId', async (req, res) => {
 router.put('/updatePreferences/:customerId', async (req, res) => {
   const { customerId } = req.params;
   const preferences = req.body;
+
+  console.log(preferences);
 
   try {
     const customer = await Customer.findByIdAndUpdate(customerId, {

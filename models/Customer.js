@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import SuppliedProduct from './Supplier.js';
+import { SuppliedProduct } from './Supplier.js';
 
 const CreditCardSchema = new mongoose.Schema({
   card_number: Number,

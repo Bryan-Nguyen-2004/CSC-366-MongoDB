@@ -35,4 +35,7 @@ const shipment = new mongoose.Schema({
     ordered_product: [ordered_product]
 });
 
+const SuppliedProduct = mongoose.model('suppliedProduct', supplied_product);
+
 export default mongoose.model('Shipment', shipment);
+export { SuppliedProduct };
