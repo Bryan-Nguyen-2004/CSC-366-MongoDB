@@ -16,9 +16,9 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-// dotenv.config();
+dotenv.config();
 
-const uri = "mongodb+srv://bryancollege71:Password@cluster.yow3236.mongodb.net/Starbucks?retryWrites=true&w=majority&appName=Cluster"
+const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
 console.log(uri);
 
