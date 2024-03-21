@@ -4,6 +4,7 @@ import Customer from './models/Customer.js';
 import Manager from './models/Manager.js';
 import Employee from './models/Employee.js';
 import Supplier from './models/Supplier.js';
+import Owner from './models/OwnerBoardDirector.js';
 import { TaxReturn, HealthInspection, Permit } from './models/RegTaxAduitor.js';
 import dotenv from 'dotenv';
 import customerRoutes from './CustomerRoutes.js';
@@ -595,6 +596,55 @@ app.post('/populateSupplier', async (req, res) => {
   try {
     await Supplier.insertMany(shipments);
     res.json('Shipments added!');
+  } catch (err) {
+    res.status(400).json('Error: ' + err);
+  }
+});
+
+
+app.post('/populateOwner', async (req, res) => {
+  const newOwner = new Owner({
+    firstName: "Jane",
+    lastName: "Doe",
+    tenureStart: new Date("2020-01-01"),
+    tenureEnd: new Date("2023-12-31"),
+    phone: "555-1234",
+    companyPerformances: [{
+      performanceDate: new Date("2023-01-01"),
+      revenue: 1000000,
+      profitMargin: 20,
+      growthRate: 5
+    }],
+    financialStatements: [{
+      type: "Annual",
+      date: new Date("2023-12-31"),
+      totalAssets: 5000000,
+      totalLiabilities: 2000000,
+      netIncome: 3000000
+    }],
+    shareholderEngagements: [{
+      date: new Date("2023-03-15"),
+      feedback: "Positive feedback on annual report",
+      communication: "Email"
+    }],
+    strategicInitiatives: [{
+      title: "Expand to Europe",
+      description: "Launch 10 new stores in Europe",
+      startDate: new Date("2023-06-01"),
+      endDate: new Date("2024-05-31"),
+      status: "In Progress"
+    }],
+    boardMeetings: [{
+      meetingDate: new Date("2023-01-15"),
+      agenda: "Annual Strategy Meeting",
+      decisions: "Approved 2023 strategy",
+      actionItems: "Assign project leaders for strategic initiatives"
+    }]
+  });
+
+  try {
+    await newOwner.save();
+    res.json('Owner added!');
   } catch (err) {
     res.status(400).json('Error: ' + err);
   }
