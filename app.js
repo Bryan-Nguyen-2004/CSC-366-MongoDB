@@ -4,8 +4,8 @@ import Customer from './models/Customer.js';
 import Manager from './models/Manager.js';
 import Employee from './models/Employee.js';
 import Supplier from './models/Supplier.js';
-import { TaxReturn, HealthInspection, Permit } from './models/RegTaxAduitor.js';
 import Owner from './models/OwnerBoardDirector.js';
+import { TaxReturn, HealthInspection, Permit } from './models/RegTaxAduitor.js';
 import dotenv from 'dotenv';
 import customerRoutes from './CustomerRoutes.js';
 
@@ -602,6 +602,55 @@ app.post('/populateSupplier', async (req, res) => {
 });
 
 
+app.post('/populateOwner', async (req, res) => {
+  const newOwner = new Owner({
+    firstName: "Jane",
+    lastName: "Doe",
+    tenureStart: new Date("2020-01-01"),
+    tenureEnd: new Date("2023-12-31"),
+    phone: "555-1234",
+    companyPerformances: [{
+      performanceDate: new Date("2023-01-01"),
+      revenue: 1000000,
+      profitMargin: 20,
+      growthRate: 5
+    }],
+    financialStatements: [{
+      type: "Annual",
+      date: new Date("2023-12-31"),
+      totalAssets: 5000000,
+      totalLiabilities: 2000000,
+      netIncome: 3000000
+    }],
+    shareholderEngagements: [{
+      date: new Date("2023-03-15"),
+      feedback: "Positive feedback on annual report",
+      communication: "Email"
+    }],
+    strategicInitiatives: [{
+      title: "Expand to Europe",
+      description: "Launch 10 new stores in Europe",
+      startDate: new Date("2023-06-01"),
+      endDate: new Date("2024-05-31"),
+      status: "In Progress"
+    }],
+    boardMeetings: [{
+      meetingDate: new Date("2023-01-15"),
+      agenda: "Annual Strategy Meeting",
+      decisions: "Approved 2023 strategy",
+      actionItems: "Assign project leaders for strategic initiatives"
+    }]
+  });
+
+  try {
+    await newOwner.save();
+    res.json('Owner added!');
+  } catch (err) {
+    res.status(400).json('Error: ' + err);
+  }
+});
+
+
 app.post('/populateRegTaxAuditor', async (req, res) => {
   const permits = [ 
     {
@@ -748,35 +797,45 @@ app.post('/populateRegTaxAuditor', async (req, res) => {
       "country" : "United States",
       "region" : "California",
       "city" : "San Luis Obispo",
-      "type" : "17FIAL"
+      "type" : "17FIAL",
+      "amount_paid" : 134567782.56,
+      "currency_code" : "USD"
     },
     {
       "filing_date" : "2021-04-12T00:00:00.000Z",
       "country" : "Thailand",
       "region" : "Central Thailand",
       "city" : "Bangkok",
-      "type" : "89HLPSJ"
+      "type" : "89HLPSJ",
+      "amount_paid" : 33453234.45,
+      "currency_code" : "THB"
     },
     {
       "filing_date" : "2023-04-10T00:00:00.000Z",
       "country" : "Malaysia",
       "region" : "Greater Kuala Lumpur",
       "city" : "Kuala Lumpur",
-      "type" : "HKJHF45"
+      "type" : "HKJHF45",
+      "amount_paid" : 2334920340.34,
+      "currency_code" : "MYR"
     },
     {
       "filing_date" : "2024-04-09T00:00:00.000Z",
       "country" : "Japan",
       "region" : "Kanto",
       "city" : "Tokyo",
-      "type" : "KJKWOI34"
+      "type" : "KJKWOI34",
+      "amount_paid" : 234923093.23,
+      "currency_code" : "JPY"
     },
     {
       "filing_date" : "2024-04-09T00:00:00.000Z",
       "country" : "Japan",
       "region" : "Kansai",
       "city" : "Kyoto",
-      "type" : "LPAIJFH23"
+      "type" : "LPAIJFH23",
+      "amount_paid" : 120348905.56,
+      "currency_code" : "JPY"
     }
   ]
   try {

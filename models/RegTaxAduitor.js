@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { Store } from './Manager.js';
+import { Decimal128 } from 'mongodb';
 
 const healthInspection = new mongoose.Schema({
   grade : String,
@@ -19,7 +20,9 @@ const taxReturn = new mongoose.Schema({
   country : String,
   region : String,
   city : String,
-  type :  String
+  type :  String,
+  amount_paid : Decimal128,
+  currency_code : String
 });
 
 const HealthInspection = mongoose.model('healthInspection', healthInspection);
