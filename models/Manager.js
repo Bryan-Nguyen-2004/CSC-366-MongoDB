@@ -35,3 +35,6 @@ const ManagerSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Manager', ManagerSchema);
+
+const Store = mongoose.model('Store', StoreSchema);
+export { Store }

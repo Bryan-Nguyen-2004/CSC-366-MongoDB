@@ -4,6 +4,7 @@ import Customer from './models/Customer.js';
 import Manager from './models/Manager.js';
 import Employee from './models/Employee.js';
 import Supplier from './models/Supplier.js';
+import { TaxReturn, HealthInspection, Permit } from './models/RegTaxAduitor.js';
 import dotenv from 'dotenv';
 import customerRoutes from './CustomerRoutes.js';
 
@@ -594,6 +595,194 @@ app.post('/populateSupplier', async (req, res) => {
   try {
     await Supplier.insertMany(shipments);
     res.json('Shipments added!');
+  } catch (err) {
+    res.status(400).json('Error: ' + err);
+  }
+});
+
+
+app.post('/populateRegTaxAuditor', async (req, res) => {
+  const permits = [ 
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Zoning Permit",
+      "store" : "65fcdf85d55c282f989a0495"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sellers Permit",
+      "store" : "65fcdf85d55c282f989a0495"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sign Permit",
+      "store" : "65fcdf85d55c282f989a0495"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Zoning Permit",
+      "store" : "65fcdf85d55c282f989a049b"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sellers Permit",
+      "store" : "65fcdf85d55c282f989a049b"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sign Permit",
+      "store" : "65fcdf85d55c282f989a049b"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Zoning Permit",
+      "store" : "65fcdf85d55c282f989a049f"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sellers Permit",
+      "store" : "65fcdf85d55c282f989a049f"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sign Permit",
+      "store" : "65fcdf85d55c282f989a049f"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Zoning Permit",
+      "store" : "65fcdf85d55c282f989a04a4"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sellers Permit",
+      "store" : "65fcdf85d55c282f989a04a4"
+    },
+    {
+      "issueDate" : "2020-03-15T00:00:00.000Z",
+      "renewalDate" : "2025-04-15T00:00:00.000Z",
+      "type" : "Sign Permit",
+      "store" : "65fcdf85d55c282f989a04a4"
+    }
+  ]
+
+  const inspections = [
+    {
+      "grade" : "A",
+      "date" : "2020-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a0495"
+    },
+    {
+      "grade" : "B",
+      "date" : "2021-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a0495"
+    },
+    {
+      "grade" : "C",
+      "date" : "2022-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a0495"
+    },
+    {
+      "grade" : "B",
+      "date" : "2020-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a049b"
+    },
+    {
+      "grade" : "A",
+      "date" : "2021-04-15T00:00:00.000Z",
+      "type" : "Sellers Permit",
+      "store" : "65fcdf85d55c282f989a049b"
+    },
+    {
+      "grade" : "B",
+      "date" : "2022-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a049b"
+    },
+    {
+      "grade" : "A",
+      "date" : "2021-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a049f"
+    },
+    {
+      "grade" : "A",
+      "date" : "2022-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a049f"
+    },
+    {
+      "grade" : "A",
+      "date" : "2023-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a049f"
+    },
+    {
+      "grade" : "C",
+      "date" : "2022-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a04a4"
+    },
+    {
+      "grade" : "B",
+      "date" : "2023-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a04a4"
+    },
+    {
+      "grade" : "A",
+      "date" : "2024-04-15T00:00:00.000Z",
+      "store" : "65fcdf85d55c282f989a04a4"
+    }
+  ]
+
+  const returns = [
+    {
+      "filing_date" : "2020-04-13T00:00:00.000Z",
+      "country" : "United States",
+      "region" : "California",
+      "city" : "San Luis Obispo",
+      "type" : "17FIAL"
+    },
+    {
+      "filing_date" : "2021-04-12T00:00:00.000Z",
+      "country" : "Thailand",
+      "region" : "Central Thailand",
+      "city" : "Bangkok",
+      "type" : "89HLPSJ"
+    },
+    {
+      "filing_date" : "2023-04-10T00:00:00.000Z",
+      "country" : "Malaysia",
+      "region" : "Greater Kuala Lumpur",
+      "city" : "Kuala Lumpur",
+      "type" : "HKJHF45"
+    },
+    {
+      "filing_date" : "2024-04-09T00:00:00.000Z",
+      "country" : "Japan",
+      "region" : "Kanto",
+      "city" : "Tokyo",
+      "type" : "KJKWOI34"
+    },
+    {
+      "filing_date" : "2024-04-09T00:00:00.000Z",
+      "country" : "Japan",
+      "region" : "Kansai",
+      "city" : "Kyoto",
+      "type" : "LPAIJFH23"
+    }
+  ]
+  try {
+    await Permit.insertMany(permits);
+    await HealthInspection.insertMany(inspections);
+    await TaxReturn.insertMany(returns);
+    res.json('Regulator Stuff Added!');
   } catch (err) {
     res.status(400).json('Error: ' + err);
   }
